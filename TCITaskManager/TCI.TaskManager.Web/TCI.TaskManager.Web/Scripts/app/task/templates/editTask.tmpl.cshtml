@@ -1,0 +1,50 @@
+﻿@using TCI.TaskManager.Web.Helpers
+@model TCI.TaskManager.Web.Models.EditTaskForm
+@{
+    var task = Html.Angular().ModelFor("vm.task");
+}
+<form novalidate
+      name="vm.form"
+      ng-submit="vm.form.$valid && vm.save()">
+    <fieldset ng-disabled="vm.saving">
+
+        <div class="modal-header">
+            <h3 class="modal-title">Edit Task</h3>
+        </div>
+
+        <div class="modal-body">
+
+            <div class="alert alert-info" ng-hide="vm.errorMessage != null">
+                Make changes to the task below.
+            </div>
+            <div class="alert alert-danger" ng-show="vm.errorMessage != null">
+                {{vm.errorMessage}}
+            </div>
+
+            <input type="hidden" ng-model="vm.task.id" name="id" />
+            
+            @task.FormGroupFor(x => x.Name)
+            <div class="form-group has-feedback">
+                <label class="control-label" for="TaskTypeId">Task Type</label>                                             
+                <select name="taskType" id="taskType" class="form-control" data-ng-model="vm.task.taskTypeId" 
+                        ng-options="option.id as option.name for option in vm.taskTypes">
+                </select>
+            </div>
+            @task.FormGroupFor(x => x.Description)
+            <div class="form-group has-feedback">
+                <label class="control-label" for="IsActive">Active Task</label>
+                <select class="form-control" name="IsActive" ng-model="vm.task.isActive">
+                    <option value="true" ng-selected="vm.task.isActive == true">True</option>
+                    <option value="false" ng-selected="vm.task.isActive == false">False</option>
+                </select>
+            </div>
+
+        </div>
+
+        <div class="modal-footer">
+            <button class="btn btn-success">Save</button>
+            <button type="button" class="btn btn-warning" ng-click="$parent.$dismiss()">Cancel</button>
+        </div>
+
+    </fieldset>
+</form>

@@ -1,0 +1,17 @@
+﻿@model dynamic
+
+@{
+	ViewBag.Title = "Task Type";
+}
+
+<div ng-controller="TaskTypeListController as vm">
+	<h1 class="page-header">
+		Task Type
+		<a class="pull-right" href="" ng-click="vm.add()"><i class="fa fa-plus-circle"></i></a>
+	</h1>
+    <div class="alert alert-danger" ng-show="vm.errorMessage != null">
+        {{vm.errorMessage}}
+    </div>
+     <kendo-grid k-options="vm.gridOptions" k-rebind="vm.gridOptions"></kendo-grid>
+       
+</div>
